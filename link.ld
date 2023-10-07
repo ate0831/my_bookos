@@ -6,18 +6,18 @@
    RAM : ORIGIN = 0x20000000, LENGTH = 192K 
  }
  /* The entry point is the reset handler */
- ENTRY( Reset); 
+ ENTRY(Reset); 
 
- EXTERN( RESET_ VECTOR); 
+ EXTERN(RESET_ VECTOR); 
 
  SECTIONS 
  {
-    .vector_ table ORIGIN( FLASH) : 
+    .vector_table ORIGIN(FLASH) : 
     { 
        /* First entry: initial Stack Pointer value */ 
-       LONG( ORIGIN( RAM) + LENGTH( RAM)); 
+       LONG(ORIGIN(RAM) + LENGTH(RAM)); 
        /* Second entry: reset vector */ 
-       KEEP(*(. vector_ table. reset_ vector)); 
+       KEEP(*(.vector_table.reset_vector)); 
     } > FLASH 
 
     .text : 
@@ -27,7 +27,7 @@
     
     /DISCARD/ : 
     { 
-      *(.ARM. exidx .ARM. exidx.*); 
+      *(.ARM.exidx .ARM.exidx.*); 
     } 
 }
 
