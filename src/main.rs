@@ -10,7 +10,7 @@ use core::panic::PanicInfo;
 
 #[no_mangle]
 pub unsafe extern "C" fn Reset() -> ! {
-    let x = 42;
+    let _x = 42;
 
     //無限ループにして値を返さない
     loop{}
