@@ -31,4 +31,8 @@
     } 
 }
 
-島田 工. Rustで始める自作組込みOS入門 技術の泉シリーズ (技術の泉シリーズ（NextPublishing）) (pp.14-15). インプレスR&D. Kindle 版. out of the LM*/
+MEMORY
+{
+   FLASH:ORIGIN = 0x00000000 + 16K, LENGTH = 512K - 16K
+   RAM:ORIGIN =   0x20000000        LENGTH = 192K
+}
