@@ -12,23 +12,44 @@
 
  SECTIONS 
  {
-    .vector_table ORIGIN(FLASH) : 
-    { 
-       /* First entry: initial Stack Pointer value */ 
-       LONG(ORIGIN(RAM) + LENGTH(RAM)); 
-       /* Second entry: reset vector */ 
-       KEEP(*(.vector_table.reset_vector)); 
-    } > FLASH 
+   .vector_table ORIGIN(FLASH) : 
+   { 
+      /* First entry: initial Stack Pointer value */ 
+      LONG(ORIGIN(RAM) + LENGTH(RAM)); 
+      /* Second entry: reset vector */ 
+      KEEP(*(.vector_table.reset_vector)); 
+   } > FLASH 
 
-    .text : 
-    { 
-      *(.text .text.*);
-    } > FLASH 
+   .text : 
+   { 
+     *(.text .text.*);
+   } > FLASH 
     
-    /DISCARD/ : 
-    { 
-      *(.ARM.exidx .ARM.exidx.*); 
-    } 
+   .rodta :
+   {
+      *(.rodata .rodata.*);   
+   } > FLASH
+
+   .bss(NOLOAD):
+   {
+      _sbss = .;
+      *(.data .data*);
+      _edata = .;
+   } > RAM
+
+   .data: AT(ADDR(.rodata) + SIZEOF(.rodata))
+   {
+      _data = .;
+      *(.data .data*);
+      _edata = .;
+   } > RAM
+
+   _sidata = LOADADDR(.data);
+
+   /DISCARD/ : 
+   { 
+     *(.ARM.exidx .ARM.exidx.*); 
+   } 
 }
 
 
