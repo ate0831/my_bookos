@@ -25,7 +25,7 @@
      *(.text .text.*);
    } > FLASH 
     
-   .rodta :
+   .rodata :
    {
       *(.rodata .rodata.*);   
    } > FLASH
@@ -33,13 +33,13 @@
    .bss(NOLOAD):
    {
       _sbss = .;
-      *(.data .data*);
-      _edata = .;
+      *(.bss .bss*);
+      _ebss = .;
    } > RAM
 
    .data: AT(ADDR(.rodata) + SIZEOF(.rodata))
    {
-      _data = .;
+      _sdata = .;
       *(.data .data*);
       _edata = .;
    } > RAM
