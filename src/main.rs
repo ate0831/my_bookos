@@ -5,6 +5,8 @@ use core::panic::PanicInfo;
 use core::ptr;
 use cortex_m_semihosting::hprintln;
 
+mod systic;
+
 #[no_mangle]
 pub unsafe extern "C" fn Reset() -> ! {
     extern "C" {
@@ -22,6 +24,8 @@ pub unsafe extern "C" fn Reset() -> ! {
     ptr::copy_nonoverlapping(&_sidata as *const u8, &mut _sdata as *mut u8, count);
 
     hprintln!("Hello world").unwrap();
+
+    SysTick::init();
 
     //無限ループにして値を返さない
     loop {}
@@ -55,14 +59,13 @@ extern "C" {
 
 #[link_section = ".vector_table.exceptions"]
 #[no_mangle]
+#[rustfmt::skip]
 pub static EXCEPTIONS: [Vector; 14] = [
     Vector { handler: NMI },
     Vector { handler: HardFault },
     Vector { handler: MemManage },
     Vector { handler: BusFault },
-    Vector {
-        handler: UsageFault,
-    },
+    Vector { handler: UsageFault},
     Vector { reserved: 0 },
     Vector { reserved: 0 },
     Vector { reserved: 0 },
@@ -77,4 +80,9 @@ pub static EXCEPTIONS: [Vector; 14] = [
 #[no_mangle]
 pub extern "C" fn DefaultExceptionHandler() {
     loop {}
+}
+
+#[no_mangle]
+pub extern "C" fn SysTick() {
+    hprintln!("SysTick").unwrap();
 }
