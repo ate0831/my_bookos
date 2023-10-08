@@ -18,6 +18,8 @@
       LONG(ORIGIN(RAM) + LENGTH(RAM)); 
       /* Second entry: reset vector */ 
       KEEP(*(.vector_table.reset_vector)); 
+
+      KEEP(*(.vector_table.exceptions)); 
    } > FLASH 
 
    .text : 
@@ -52,4 +54,11 @@
    } 
 }
 
-
+PROVIDE(NMI = DefaultExceptionHandler);
+PROVIDE(HardFault = DefaultExceptionHandler);
+PROVIDE(MemManage = DefaultExceptionHandler);
+PROVIDE(BusFault = DefaultExceptionHandler);
+PROVIDE(UsageFault = DefaultExceptionHandler);
+PROVIDE(SVCall = DefaultExceptionHandler);
+PROVIDE(PendSV = DefaultExceptionHandler);
+PROVIDE(SysTick = DefaultExceptionHandler);
