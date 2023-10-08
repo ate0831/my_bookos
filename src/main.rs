@@ -15,13 +15,13 @@ pub unsafe extern "C" fn Reset() -> ! {
         static mut _edata: u8;
     }
 
-    let count = &_ebss as *const u8 as useize - &_sbss as *const usize;
-    prt::write_bytes(&mut _sbss as *mut u8, 0, count);
+    let count = &_ebss as *const u8 as usize - &_sbss as *const u8 as usize;
+    ptr::write_bytes(&mut _sbss as *mut u8, 0, count);
 
     let count = &_edata as *const u8 as usize - &_sdata as *const u8 as usize;
     ptr::copy_nonoverlapping(&_sidata as *const u8, &mut _sdata as *mut u8, count);
 
-    hprintln!("Hello world").unwarp();
+    hprintln!("Hello world").unwrarp();
 
     //無限ループにして値を返さない
     loop {}
