@@ -3,7 +3,7 @@
 
 use core::panic::PanicInfo;
 use core::ptr;
-use corte_x_semihosting::hprintln;
+use cortex_m_semihosting::hprintln;
 
 #[no_mangle]
 pub unsafe extern "C" fn Reset() -> ! {
