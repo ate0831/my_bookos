@@ -37,7 +37,7 @@
       _ebss = .;
    } > RAM
 
-   .data: AT(ADDR(.rodata) + SIZEOF(.rodata))
+   .data : AT(ADDR(.rodata) + SIZEOF(.rodata))
    {
       _sdata = .;
       *(.data .data*);
