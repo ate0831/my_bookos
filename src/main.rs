@@ -21,7 +21,7 @@ pub unsafe extern "C" fn Reset() -> ! {
     let count = &_edata as *const u8 as usize - &_sdata as *const u8 as usize;
     ptr::copy_nonoverlapping(&_sidata as *const u8, &mut _sdata as *mut u8, count);
 
-    hprintln!("Hello world").unwrarp();
+    hprintln!("Hello world").unwrap();
 
     //無限ループにして値を返さない
     loop {}
